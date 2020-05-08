@@ -6,9 +6,14 @@ nextISSTimesForMyLocation((error, passTimes) => {
     return console.log("It didn't work! ", error);
   }
 
-  const data = passTimes;
+  printPassTimes(passTimes);
 
-  data.forEach(element => {
+  
+});
+
+
+const printPassTimes = function(passTimes) {
+  passTimes.forEach(element => {
     let pass = element.risetime;
     let time = new Date(pass * 1000);
 
@@ -23,4 +28,7 @@ nextISSTimesForMyLocation((error, passTimes) => {
 
     console.log(` ** \n Upcoming ISS flyover on ${formattedTime} \n **`);
   });
-});
+};
+
+
+module.exports = { printPassTimes };
