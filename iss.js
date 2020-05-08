@@ -57,10 +57,31 @@ const fetchISSPass = function(coords, callback) {
   });
 };
 
+const nextISSTimesForMyLocation = function(callback) {
+  
+  fetchMyIP((error, ipCallback) => {
+    if (error) {
+      return console.log('IP address broke: ', error);
+    }
+    return fetchCoordsByIP(ipCallback, (error, data) => {
+      if (error) {
+        return console.log('fetchCoords broke: ', error);
+      }
+      return fetchISSPass(data, (error, riseTimes) => {
+        if (error) {
+          return console.log('ISSPASS broke: ', error);
+        }
+        callback(null, riseTimes);
+      });
+    });
+  });
+};
+
 
 
 module.exports = {
   fetchMyIP,
   fetchCoordsByIP,
-  fetchISSPass
+  fetchISSPass,
+  nextISSTimesForMyLocation
 };
